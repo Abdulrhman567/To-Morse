@@ -19,6 +19,5 @@ def home():
     return render_template('index.html', full_code=full_morse_code)
 
 
-debug = os.getenv('Debug') == 'True'
 if __name__ == "__main__":
-    app.run(debug=debug)
+    app.run(debug=True)
