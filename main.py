@@ -11,12 +11,12 @@ def home():
     full_morse_code = ""
     if request.method == 'POST':
         text_data = request.form.get('usertext').lower()
-        morse_list = [codes[char] + ' ' if char in codes else 'flash' for char in text_data]
-        if 'flash' in morse_list:
-            flash(message='Error in input, Can not translate these characters, Try again.', category='error')
-            return redirect(url_for('home'))
-        else:
-            full_morse_code = ''.join(morse_list)
+        for char in text_data:
+            if char in codes:
+                full_morse_code += ' '.join(codes[char])
+            else:
+                flash("Can't translate these characters, Please try again!", category='error')
+                return redirect(url_for('home'))
     return render_template('index.html', full_code=full_morse_code)
 
 
