@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash
 from morse_code import codes
 import os
 
@@ -14,6 +14,7 @@ def home():
         morse_list = [codes[char] + ' ' if char in codes else 'flash' for char in text_data]
         if 'flash' in morse_list:
             flash(message='Error in input, Can not translate these characters, Try again.', category='error')
+            return redirect(url_for('home'))
         else:
             full_morse_code = ''.join(morse_list)
     return render_template('index.html', full_code=full_morse_code)
